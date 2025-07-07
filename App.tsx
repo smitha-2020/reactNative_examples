@@ -5,35 +5,24 @@
  * @format
  */
 
-import { Alert, StatusBar, StyleSheet, View } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
-import { useState } from 'react';
-import FlatListView from './src/components/FlatListView';
+import { StatusBar, StyleSheet } from 'react-native';
+import React from 'react';
+import { PaperProvider } from 'react-native-paper';
+import { CustomLightTheme } from './src/Theme';
+import InitialPage from './src/components/InitialPage';
 
-function App() {
-  const [goals, setGoals] = useState<string[]>([]);
-  const [goal, setGoal] = useState<string>('');
-  const [showModal, setShowModal] = useState<boolean>(false);
-
-  const addGoalFn = () => {
-    setGoals([...goals, goal]);
-    setGoal('');
-    setShowModal(true);
-    console.log('hello');
-  };
-
+const Main = () => {
+  const theme = CustomLightTheme;
   return (
-    <View style={styles.container}>
-      <StatusBar hidden={true} />
-    </View>
+    <PaperProvider theme={theme}>
+      <StatusBar backgroundColor={'coral'} />
+      <InitialPage />
+    </PaperProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 50,
-  },
-});
+function App(): React.JSX.Element {
+  return <Main />;
+}
 
 export default App;
