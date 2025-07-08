@@ -5,18 +5,18 @@
  * @format
  */
 
-import { StatusBar, StyleSheet } from 'react-native';
+import { StatusBar } from 'react-native';
 import React from 'react';
 import { PaperProvider } from 'react-native-paper';
 import { CustomLightTheme } from './src/Theme';
-import InitialPage from './src/components/InitialPage';
+import MainApp from './src/components/MainApp';
 
 const Main = () => {
   const theme = CustomLightTheme;
   return (
     <PaperProvider theme={theme}>
       <StatusBar backgroundColor={'coral'} />
-      <InitialPage />
+      <MainApp />
     </PaperProvider>
   );
 };
