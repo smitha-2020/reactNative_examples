@@ -6,12 +6,15 @@
  */
 
 import { StatusBar } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PaperProvider } from 'react-native-paper';
 import { CustomLightTheme } from './src/Theme';
 import MainApp from './src/components/MainApp';
 
 const Main = () => {
+  useEffect(() => {
+    setTimeout(() => {}, 6000);
+  }, []);
   const theme = CustomLightTheme;
   return (
     <PaperProvider theme={theme}>

@@ -1,10 +1,10 @@
 import AppStateProvider from './Providers/AppStateProvider';
-import InitialPage from './InitialPage';
+import Routes from './Routes';
 
 const MainApp = () => {
   return (
     <AppStateProvider>
-      <InitialPage />
+      <Routes />
     </AppStateProvider>
   );
 };
