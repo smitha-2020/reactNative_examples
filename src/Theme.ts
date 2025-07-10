@@ -175,9 +175,8 @@ export const CustomLightTheme = {
   // Specify custom property in nested object
   colors: {
     ...MergedLightTheme.colors,
-    myOwnColor: '#BADA55',
-    brandPrimary: 'pink',
-    brandSecondary: 'red',
+    secondary: 'rgba(0, 0, 0, 0.7)', //backgroundColor with opacity 0.7
+    tertiary: 'rgba(255, 255, 255, 0.5)', // font color
   },
   fonts,
 };

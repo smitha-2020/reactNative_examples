@@ -1,32 +1,55 @@
-import { useNavigation } from '@react-navigation/native';
-import { View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RouteStackParamList } from '../Routes';
+import { ParamListBase, RouteProp } from '@react-navigation/native';
+import { View, ScrollView } from 'react-native';
+import { Text } from 'react-native-paper';
+import { Meal } from '../navigation/types';
+import BackgroundImageWithOpacity from '../ui/BackgroundImageWithOpacity';
+import {
+  responsiveScale,
+  responsiveScaleHeight,
+  useAppTheme,
+} from '../../Theme';
+import ViewRow from '../ui/ViewRow';
+import ViewColumn from '../ui/ViewColumn';
 
-const HomeScreen = () => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RouteStackParamList>>();
+const HomeScreen = ({
+  route,
+  navigation,
+  mealList,
+}: {
+  route: RouteProp<ParamListBase, 'HomeScreen'>;
+  navigation: any;
+  mealList: Meal[];
+}) => {
+  const { colors } = useAppTheme();
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'coral',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <View style={{ padding: 100 }}>
-        <Text variant="bodySmall">Home Screen</Text>
-        <Button
-          mode="contained"
-          onPress={() => navigation.navigate('DetailsScreen')}
+    <BackgroundImageWithOpacity>
+      <ViewColumn
+        style={{
+          flex: 1,
+          marginHorizontal: responsiveScale(30),
+          marginVertical: responsiveScaleHeight(70),
+        }}
+      >
+        <ScrollView
+          contentContainerStyle={{ alignItems: 'center' }}
+          showsVerticalScrollIndicator={false}
         >
-          Go to details
-        </Button>
-      </View>
-    </View>
+          <ViewRow
+            style={{
+              backgroundColor: colors.secondary,
+              flex: 1,
+              minWidth: '90%',
+              padding: 30,
+              marginVertical: responsiveScale(8),
+            }}
+          >
+            <Text variant="bodySmall" style={{ color: colors.tertiary }}>
+              Tomato Pasta
+            </Text>
+          </ViewRow>
+        </ScrollView>
+      </ViewColumn>
+    </BackgroundImageWithOpacity>
   );
 };
 

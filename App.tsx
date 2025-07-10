@@ -12,9 +12,6 @@ import { CustomLightTheme } from './src/Theme';
 import MainApp from './src/components/MainApp';
 
 const Main = () => {
-  useEffect(() => {
-    setTimeout(() => {}, 6000);
-  }, []);
   const theme = CustomLightTheme;
   return (
     <PaperProvider theme={theme}>

@@ -1,4 +1,4 @@
-import AppStateProvider from './Providers/AppStateProvider';
+import AppStateProvider from './provider/AppStateProvider';
 import Routes from './Routes';
 
 const MainApp = () => {
