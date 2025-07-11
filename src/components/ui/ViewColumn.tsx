@@ -4,8 +4,8 @@ const ViewColumn = ({
   children,
   style,
 }: {
-  children: React.JSX.Element;
-  style: StyleProp<ViewStyle>;
+  children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
 }) => {
   return (
     <View

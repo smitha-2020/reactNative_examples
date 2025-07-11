@@ -1,10 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './screens/HomeScreen';
-import DetailsScreen from './screens/DetailsScreen';
+import HomeScreen from '../screens/HomeScreen';
+import DetailsScreen from '../screens/DetailsScreen';
 import { memo } from 'react';
 import { CATEGORIES, MEALS } from '../data/dummy-data';
-import { RouteStackParamList } from './navigation/types';
+import { RouteStackParamList } from '../navigation/types';
 
 const Stack = createNativeStackNavigator<RouteStackParamList>();
 
@@ -22,10 +22,10 @@ const Routes = () => {
         }}
       >
         <Stack.Screen name="HomeScreen">
-          {props => <MemorizedHomeScreen {...props} mealList={MEALS} />}
+          {props => <MemorizedHomeScreen {...props} category={CATEGORIES} />}
         </Stack.Screen>
         <Stack.Screen name="DetailsScreen">
-          {props => <MemorizedDetailsScreen {...props} category={CATEGORIES} />}
+          {props => <MemorizedDetailsScreen {...props} mealList={MEALS} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
