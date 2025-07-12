@@ -38,7 +38,6 @@ local.properties
 # node.js
 #
 node_modules/
-src/assets
 npm-debug.log
 yarn-error.log
 
