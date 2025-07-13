@@ -1,47 +1,49 @@
-import { ParamListBase, RouteProp } from '@react-navigation/native';
-import { Text } from 'react-native-paper';
+import { RouteProp } from '@react-navigation/native';
 import Meal from '../models/meal';
 import ViewOuterTemplate from '../components/ui/template/ViewOuterTemplate';
-import { responsiveScale, useAppTheme } from '../Theme';
-import ViewRow from '../components/ui/ViewRow';
-import { TouchableOpacity, View } from 'react-native';
+import { useAppTheme } from '../Theme';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { RouteStackParamList } from '../navigation/types';
+import { Alert, View } from 'react-native';
+import RecipeListByCategory from '../components/RecipeListByCategory';
 
 const DetailsScreen = ({
   route,
   navigation,
   mealList,
 }: {
-  route: RouteProp<ParamListBase, 'DetailsScreen'>;
+  route: RouteProp<RouteStackParamList, 'DetailsScreen'>;
   navigation: any;
   mealList: Meal[];
 }) => {
   const { colors } = useAppTheme();
+  const [searchText, setSearchText] = useState<string>('');
+  const { categoryId } = route.params;
+  const recipeList: Meal[] = mealList.filter(meal =>
+    meal.categoryIds.includes(categoryId),
+  );
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerSearchBarOptions: {
+        barTintColor: colors.tertiary,
+        textColor: colors.gray,
+        placeholder: 'Search for Recipes...',
+        hideWhenScrolling: false,
+        onChangeText: (event: { nativeEvent: { text: any } }) => {
+          setSearchText(event.nativeEvent.text);
+        },
+        onCancelButtonPress: () => {
+          Alert.alert('Search cancelled');
+        },
+      },
+    });
+  }, [navigation]);
   return (
-    <ViewOuterTemplate marginWidth="0" marginHeight="30">
-      <View
-        style={{
-          backgroundColor: 'pink',
-          minWidth: '90%',
-          padding: responsiveScale(10),
-        }}
-      ></View>
-      <TouchableOpacity
-        onPress={() => console.log('heyy')}
-        style={{
-          backgroundColor: colors.secondary,
-          flex: 1,
-          minWidth: '90%',
-          padding: responsiveScale(10),
-          marginVertical: responsiveScale(8),
-          borderRadius: responsiveScale(50),
-        }}
-      >
-        <ViewRow style={{ flex: 1 }}>
-          <Text variant="bodySmall" style={{ color: colors.tertiary }}>
-            Details Screen
-          </Text>
-        </ViewRow>
-      </TouchableOpacity>
+    <ViewOuterTemplate marginWidth="0" marginHeight="80">
+      <View style={{ marginTop: 40 }}>
+        <RecipeListByCategory recipes={recipeList} navigation={navigation} />
+      </View>
     </ViewOuterTemplate>
   );
 };

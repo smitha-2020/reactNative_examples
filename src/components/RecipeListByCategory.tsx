@@ -1,29 +1,24 @@
 import ViewRow from './ui/ViewRow';
 import { responsiveScale, useAppTheme } from '../Theme';
 import { Text } from 'react-native-paper';
-import Category from '../models/category';
-import { Alert, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import Meal from '../models/meal';
 
-const CategoryList = ({
-  category,
+const RecipeListByCategory = ({
+  recipes,
   navigation,
 }: {
-  category: Category[];
+  recipes: Meal[];
   navigation: any;
 }) => {
   const { colors } = useAppTheme();
 
-  const onPress = () => {
-    navigation.navigate('DetailsScreen');
-  };
   return (
     <>
-      {category.map(category => (
+      {recipes.map(recipe => (
         <TouchableOpacity
-          key={category.id}
-          onPress={() => {
-            navigation.navigate('DetailsScreen', { categoryId: category.id });
-          }}
+          key={recipe.id}
+          onPress={() => {}}
           style={{
             backgroundColor: colors.secondary,
             flex: 1,
@@ -35,7 +30,7 @@ const CategoryList = ({
         >
           <ViewRow style={{ flex: 1 }}>
             <Text variant="bodySmall" style={{ color: colors.tertiary }}>
-              {category.title}
+              {recipe.title}
             </Text>
           </ViewRow>
         </TouchableOpacity>
@@ -44,4 +39,4 @@ const CategoryList = ({
   );
 };
 
-export default CategoryList;
+export default RecipeListByCategory;

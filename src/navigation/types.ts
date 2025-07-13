@@ -1,6 +1,8 @@
 export type RouteStackParamList = {
   HomeScreen: undefined;
-  DetailsScreen: undefined;
+  DetailsScreen: {
+    categoryId: string;
+  };
   // add other routes here
 };
 

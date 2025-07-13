@@ -177,6 +177,7 @@ export const CustomLightTheme = {
     ...MergedLightTheme.colors,
     secondary: 'rgba(0, 0, 0, 0.7)', //backgroundColor with opacity 0.7
     tertiary: 'rgba(255, 255, 255, 0.5)', // font color
+    gray: 'rgb(38, 38, 38)', // Gray Color
   },
   fonts,
 };
