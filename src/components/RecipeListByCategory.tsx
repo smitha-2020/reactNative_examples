@@ -1,40 +1,65 @@
 import ViewRow from './ui/ViewRow';
 import { responsiveScale, useAppTheme } from '../Theme';
 import { Text } from 'react-native-paper';
-import { TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
+import { useFilterBySearch } from '../hooks/useFilterBySearch';
 import Meal from '../models/meal';
 
 const RecipeListByCategory = ({
-  recipes,
   navigation,
+  searchText,
+  categoryId,
 }: {
-  recipes: Meal[];
   navigation: any;
+  searchText: string;
+  categoryId: string;
 }) => {
   const { colors } = useAppTheme();
+  const { recipeList, loading, error } = useFilterBySearch(
+    searchText,
+    categoryId,
+  );
+
+  const renderItem = ({ item }: { item: Meal }) => {
+    return (
+      <TouchableOpacity
+        key={item.id}
+        onPress={() => {}}
+        style={{
+          backgroundColor: colors.secondary,
+          flex: 1,
+          minWidth: '90%',
+          padding: responsiveScale(10),
+          marginVertical: responsiveScale(8),
+          borderRadius: responsiveScale(50),
+        }}
+      >
+        <ViewRow style={{ flex: 1 }}>
+          <Text variant="bodySmall" style={{ color: colors.tertiary }}>
+            {item.title}
+          </Text>
+        </ViewRow>
+      </TouchableOpacity>
+    );
+  };
+
+  if (loading) {
+    return (
+      <ViewRow>
+        <Text variant="bodySmall" style={{ color: colors.tertiary }}>
+          Loading...
+        </Text>
+      </ViewRow>
+    );
+  }
 
   return (
     <>
-      {recipes.map(recipe => (
-        <TouchableOpacity
-          key={recipe.id}
-          onPress={() => {}}
-          style={{
-            backgroundColor: colors.secondary,
-            flex: 1,
-            minWidth: '90%',
-            padding: responsiveScale(10),
-            marginVertical: responsiveScale(8),
-            borderRadius: responsiveScale(50),
-          }}
-        >
-          <ViewRow style={{ flex: 1 }}>
-            <Text variant="bodySmall" style={{ color: colors.tertiary }}>
-              {recipe.title}
-            </Text>
-          </ViewRow>
-        </TouchableOpacity>
-      ))}
+      <FlatList
+        data={recipeList}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
     </>
   );
 };

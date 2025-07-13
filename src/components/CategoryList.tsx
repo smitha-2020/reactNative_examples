@@ -2,7 +2,7 @@ import ViewRow from './ui/ViewRow';
 import { responsiveScale, useAppTheme } from '../Theme';
 import { Text } from 'react-native-paper';
 import Category from '../models/category';
-import { Alert, TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 
 const CategoryList = ({
   category,
@@ -13,33 +13,38 @@ const CategoryList = ({
 }) => {
   const { colors } = useAppTheme();
 
-  const onPress = () => {
-    navigation.navigate('DetailsScreen');
+  const renderItem = ({ item }: { item: Category }) => {
+    return (
+      <TouchableOpacity
+        key={item.id}
+        onPress={() => {
+          navigation.navigate('DetailsScreen', { categoryId: item.id });
+        }}
+        style={{
+          backgroundColor: colors.secondary,
+          flex: 1,
+          minWidth: '90%',
+          padding: responsiveScale(10),
+          marginVertical: responsiveScale(8),
+          borderRadius: responsiveScale(50),
+        }}
+      >
+        <ViewRow style={{ flex: 1 }}>
+          <Text variant="bodySmall" style={{ color: colors.tertiary }}>
+            {item.title}
+          </Text>
+        </ViewRow>
+      </TouchableOpacity>
+    );
   };
+
   return (
     <>
-      {category.map(category => (
-        <TouchableOpacity
-          key={category.id}
-          onPress={() => {
-            navigation.navigate('DetailsScreen', { categoryId: category.id });
-          }}
-          style={{
-            backgroundColor: colors.secondary,
-            flex: 1,
-            minWidth: '90%',
-            padding: responsiveScale(10),
-            marginVertical: responsiveScale(8),
-            borderRadius: responsiveScale(50),
-          }}
-        >
-          <ViewRow style={{ flex: 1 }}>
-            <Text variant="bodySmall" style={{ color: colors.tertiary }}>
-              {category.title}
-            </Text>
-          </ViewRow>
-        </TouchableOpacity>
-      ))}
+      <FlatList
+        data={category}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
     </>
   );
 };

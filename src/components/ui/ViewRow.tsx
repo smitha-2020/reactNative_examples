@@ -5,7 +5,7 @@ const ViewRow = ({
   style,
 }: {
   children: React.JSX.Element;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 }) => {
   return (
     <View

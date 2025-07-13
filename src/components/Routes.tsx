@@ -30,7 +30,7 @@ const Routes = () => {
             headerTintColor: colors.tertiary,
           }}
         >
-          {props => <MemorizedDetailsScreen {...props} mealList={MEALS} />}
+          {props => <MemorizedDetailsScreen {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

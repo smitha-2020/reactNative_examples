@@ -16,12 +16,12 @@ const ViewOuterTemplate = ({
   return (
     <BackgroundImageWithOpacity>
       <ViewTemplate marginWidth={marginWidth} marginHeight={marginHeight}>
-        <ScrollView
+        {/** <ScrollView
           contentContainerStyle={{ alignItems: 'center' }}
           showsVerticalScrollIndicator={false}
-        >
-          <ViewColumn>{children}</ViewColumn>
-        </ScrollView>
+        > */}
+        <ViewColumn>{children}</ViewColumn>
+        {/** </ScrollView> */}
       </ViewTemplate>
     </BackgroundImageWithOpacity>
   );
