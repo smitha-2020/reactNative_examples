@@ -1,4 +1,10 @@
-import { ImageBackground, StyleProp, View, ViewStyle } from 'react-native';
+import {
+  Image,
+  StyleProp,
+  View,
+  ViewStyle,
+  useWindowDimensions,
+} from 'react-native';
 import { useAppTheme } from '../../Theme';
 
 const BackgroundImageWithOpacity = ({
@@ -11,21 +17,22 @@ const BackgroundImageWithOpacity = ({
   opacity?: string;
 }) => {
   const { colors } = useAppTheme();
+  const { width, height } = useWindowDimensions();
   return (
-    <ImageBackground
-      source={require('../../assets/images/foodwiki.jpg')}
-      resizeMode="cover"
-      style={[style, { zIndex: -1, flex: 1 }]}
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: opacity ?? colors.secondary,
+        position: 'relative',
+      }}
     >
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: opacity ?? colors.secondary,
-        }}
-      >
-        {children}
-      </View>
-    </ImageBackground>
+      <Image
+        source={require('../../assets/images/foodwiki.jpg')}
+        resizeMode="cover"
+        style={[{ position: 'absolute', width, height, zIndex: -1 }]}
+      />
+      {children}
+    </View>
   );
 };
 

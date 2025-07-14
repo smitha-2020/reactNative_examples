@@ -6,17 +6,20 @@
  */
 
 import { StatusBar } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { PaperProvider } from 'react-native-paper';
 import { CustomLightTheme } from './src/Theme';
 import MainApp from './src/components/MainApp';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Main = () => {
   const theme = CustomLightTheme;
   return (
     <PaperProvider theme={theme}>
-      <StatusBar backgroundColor={'coral'} />
-      <MainApp />
+      <GestureHandlerRootView>
+        <StatusBar backgroundColor={'coral'} />
+        <MainApp />
+      </GestureHandlerRootView>
     </PaperProvider>
   );
 };

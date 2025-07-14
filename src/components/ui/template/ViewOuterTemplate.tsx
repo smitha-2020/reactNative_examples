@@ -1,5 +1,3 @@
-import { ScrollView, View } from 'react-native';
-import { responsiveScale, responsiveScaleHeight } from '../../../Theme';
 import BackgroundImageWithOpacity from '../BackgroundImageWithOpacity';
 import ViewTemplate from './ViewTemplate';
 import ViewColumn from '../ViewColumn';
