@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Meal from '../models/meal';
 import { MEALS } from '../data/dummy-data';
-import { Alert } from 'react-native';
 
 export const useFilterBySearch = (searchText: string, categoryId: string) => {
   const [recipeList, setRecipeList] = useState<Meal[]>([]);

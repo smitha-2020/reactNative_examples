@@ -25,7 +25,7 @@ const RecipeListByCategory = ({
       <Card
         elevation={4}
         onPress={() => {
-          navigation.navigate('IndividualDetailScreen');
+          navigation.navigate('IndividualDetailScreen', { recipeId: item.id });
         }}
         style={{
           flex: 1,
@@ -33,14 +33,19 @@ const RecipeListByCategory = ({
           backgroundColor: 'rgba(255, 255, 255, 0.2)',
         }}
       >
-        <Card.Cover source={{ uri: item.imageUrl }} />
+        <Card.Cover
+          source={{ uri: item.imageUrl }}
+          style={{
+            marginTop: responsiveScale(10),
+            marginHorizontal: responsiveScale(10),
+            marginBottom: responsiveScale(20),
+          }}
+        />
         <Card.Title
           title={item.title}
           titleVariant="bodySmall"
           titleStyle={{
             color: colors.tertiary,
-            flexWrap: 'wrap',
-            justifyContent: 'center',
           }}
         />
       </Card>
