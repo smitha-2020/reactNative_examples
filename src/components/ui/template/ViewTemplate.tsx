@@ -15,7 +15,7 @@ const ViewTemplate = ({
       style={{
         flex: 1,
         marginHorizontal: responsiveScale(Number(marginWidth)),
-        marginVertical: responsiveScaleHeight(Number(marginHeight)),
+        marginTop: responsiveScaleHeight(Number(marginHeight)),
         justifyContent: 'center',
         alignItems: 'center',
       }}

@@ -1,4 +1,4 @@
-import { Alert, FlatList, Modal, Pressable, View } from 'react-native';
+import { Alert, FlatList, Modal, View } from 'react-native';
 import Item from './Item';
 import { Button, Text } from 'react-native-paper';
 

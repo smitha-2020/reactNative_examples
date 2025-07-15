@@ -2,7 +2,7 @@ import ViewRow from './ui/ViewRow';
 import { responsiveScale, useAppTheme } from '../Theme';
 import { Text } from 'react-native-paper';
 import Category from '../models/category';
-import { FlatList, TouchableOpacity, View } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 
 const CategoryList = ({
   category,

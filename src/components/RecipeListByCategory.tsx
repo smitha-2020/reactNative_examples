@@ -1,7 +1,7 @@
 import ViewRow from './ui/ViewRow';
 import { responsiveScale, useAppTheme } from '../Theme';
-import { Text } from 'react-native-paper';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { Card, Text } from 'react-native-paper';
+import { FlatList } from 'react-native';
 import { useFilterBySearch } from '../hooks/useFilterBySearch';
 import Meal from '../models/meal';
 
@@ -22,27 +22,44 @@ const RecipeListByCategory = ({
 
   const renderItem = ({ item }: { item: Meal }) => {
     return (
-      <TouchableOpacity
-        key={item.id}
-        onPress={() => {}}
+      <Card
+        elevation={4}
+        onPress={() => {
+          navigation.navigate('IndividualDetailScreen');
+        }}
         style={{
-          backgroundColor: colors.secondary,
           flex: 1,
-          minWidth: '90%',
-          padding: responsiveScale(10),
-          marginVertical: responsiveScale(8),
-          borderRadius: responsiveScale(50),
+          marginHorizontal: responsiveScale(8),
+          backgroundColor: 'rgba(255, 255, 255, 0.2)',
         }}
       >
-        <ViewRow style={{ flex: 1 }}>
-          <Text variant="bodySmall" style={{ color: colors.tertiary }}>
-            {item.title}
-          </Text>
-        </ViewRow>
-      </TouchableOpacity>
+        <Card.Cover source={{ uri: item.imageUrl }} />
+        <Card.Title
+          title={item.title}
+          titleVariant="bodySmall"
+          titleStyle={{
+            color: colors.tertiary,
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+          }}
+        />
+      </Card>
     );
   };
 
+  if (error) {
+    return (
+      <Text
+        style={{
+          textAlign: 'center',
+          marginTop: responsiveScale(20),
+          color: colors.tertiary,
+        }}
+      >
+        Oops!Error Occured!
+      </Text>
+    );
+  }
   if (loading) {
     return (
       <ViewRow>
@@ -54,13 +71,23 @@ const RecipeListByCategory = ({
   }
 
   return (
-    <>
-      <FlatList
-        data={recipeList}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
-    </>
+    <FlatList
+      data={recipeList}
+      renderItem={renderItem}
+      keyExtractor={item => item.id}
+      numColumns={2}
+      columnWrapperStyle={{
+        gap: responsiveScale(10),
+        marginTop: responsiveScale(10),
+      }}
+      ListEmptyComponent={
+        <Text
+          style={{ textAlign: 'center', marginTop: 20, color: colors.tertiary }}
+        >
+          No recipes found. Please try a different search.
+        </Text>
+      }
+    />
   );
 };
 

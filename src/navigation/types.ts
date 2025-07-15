@@ -1,8 +1,11 @@
 export type RouteStackParamList = {
+  LandingPage: undefined;
   HomeScreen: undefined;
   DetailsScreen: {
     categoryId: string;
   };
+  IndividualDetailScreen: undefined;
+  FavoriteListScreen: undefined;
   // add other routes here
 };
 

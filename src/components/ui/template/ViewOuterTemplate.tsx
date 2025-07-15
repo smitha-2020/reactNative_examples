@@ -1,6 +1,5 @@
 import BackgroundImageWithOpacity from '../BackgroundImageWithOpacity';
 import ViewTemplate from './ViewTemplate';
-import ViewColumn from '../ViewColumn';
 
 const ViewOuterTemplate = ({
   children,
@@ -18,7 +17,7 @@ const ViewOuterTemplate = ({
           contentContainerStyle={{ alignItems: 'center' }}
           showsVerticalScrollIndicator={false}
         > */}
-        <ViewColumn>{children}</ViewColumn>
+        {children}
         {/** </ScrollView> */}
       </ViewTemplate>
     </BackgroundImageWithOpacity>
