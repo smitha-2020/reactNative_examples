@@ -9,16 +9,19 @@ const RecipeListByCategory = ({
   navigation,
   searchText,
   categoryId,
+  checked,
 }: {
   navigation: any;
   searchText: string;
   categoryId: string;
+  checked: string;
 }) => {
   const { colors } = useAppTheme();
-  const { recipeList, loading, error } = useFilterBySearch(
+  const { recipeList, loading, error } = useFilterBySearch({
     searchText,
     categoryId,
-  );
+    checked,
+  });
 
   const renderItem = ({ item }: { item: Meal }) => {
     return (
@@ -31,6 +34,12 @@ const RecipeListByCategory = ({
           flex: 1,
           marginHorizontal: responsiveScale(8),
           backgroundColor: 'rgba(255, 255, 255, 0.2)',
+
+          shadowColor: 'white',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.3,
+          shadowRadius: 2,
+          elevation: 2,
         }}
       >
         <Card.Cover
@@ -39,6 +48,12 @@ const RecipeListByCategory = ({
             marginTop: responsiveScale(10),
             marginHorizontal: responsiveScale(10),
             marginBottom: responsiveScale(20),
+
+            shadowColor: 'white',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.5,
+            shadowRadius: 2,
+            elevation: 2,
           }}
         />
         <Card.Title

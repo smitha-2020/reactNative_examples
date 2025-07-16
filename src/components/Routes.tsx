@@ -7,7 +7,7 @@ import { CATEGORIES } from '../data/dummy-data';
 import { RouteStackParamList } from '../navigation/types';
 import { useAppTheme } from '../Theme';
 import IndividualDetailScreen from '../screens/IndividualDetailScreen';
-import FavoriteListScreen from '../screens/FavoritelistScreen';
+import FavoriteListScreen from '../screens/FavoriteListScreen';
 import LandingPage from '../screens/LandingPage';
 
 const Stack = createNativeStackNavigator<RouteStackParamList>();

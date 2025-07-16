@@ -28,3 +28,10 @@ export class Meal {
     public isLactoseFree: boolean,
   ) {}
 }
+
+export type FilterBySearchProps = {
+  searchText?: string;
+  categoryId?: string;
+  recipeId?: string;
+  checked?: string;
+};
