@@ -1,10 +1,10 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
+import { TouchableOpacity, View } from 'react-native';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import { Button, Checkbox } from 'react-native-paper';
-import { responsiveScale, useAppTheme } from '../../../Theme';
-import { useFilterBySearch } from '../../../hooks/useFilterBySearch';
+import { Checkbox } from 'react-native-paper';
+import { responsiveScale } from '../../../Theme';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 const BottomSheetFilter = ({
   ref,
@@ -42,44 +42,45 @@ const BottomSheetFilter = ({
           index={1}
           snapPoints={snapPoints}
           enableDynamicSizing={false}
-          style={{
-            paddingHorizontal: responsiveScale(40),
-          }}
         >
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <TouchableOpacity
-              onPress={closeSheet}
-              style={{
-                marginHorizontal: responsiveScale(5),
-                width: 25,
-                height: 25,
-                backgroundColor: 'black',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: '50%',
-              }}
-            >
-              <Text style={{ color: 'white', fontWeight: 'bold' }}>x</Text>
-            </TouchableOpacity>
-          </View>
-          <BottomSheetView>
+          <View>
             <View
               style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginVertical: responsiveScale(50),
+                alignItems: 'flex-end',
               }}
             >
-              {['isGlutenFree', 'isVegan', 'isVegetarian', 'isLactoseFree'].map(
-                label => (
+              <TouchableOpacity
+                onPress={closeSheet}
+                style={{
+                  marginHorizontal: responsiveScale(5),
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <EntypoIcon
+                  name="circle-with-cross"
+                  size={responsiveScale(20)}
+                />
+              </TouchableOpacity>
+            </View>
+            <BottomSheetView>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                  marginVertical: responsiveScale(50),
+                  marginHorizontal: responsiveScale(50),
+                }}
+              >
+                {[
+                  'isGlutenFree',
+                  'isVegan',
+                  'isVegetarian',
+                  'isLactoseFree',
+                ].map(label => (
                   <Checkbox.Item
                     labelStyle={{ fontSize: responsiveScale(8) }}
                     key={label}
@@ -87,22 +88,14 @@ const BottomSheetFilter = ({
                     status={checked === label ? 'checked' : 'unchecked'}
                     onPress={() => handleSelect(label)}
                   />
-                ),
-              )}
-            </View>
-          </BottomSheetView>
+                ))}
+              </View>
+            </BottomSheetView>
+          </View>
         </BottomSheet>
       )}
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  contentContainer: {
-    flex: 1,
-    padding: 40,
-    flexDirection: 'row',
-  },
-});
 
 export default BottomSheetFilter;

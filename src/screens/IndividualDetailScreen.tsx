@@ -8,7 +8,7 @@ import Meal from '../models/meal';
 import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import ViewRowStart from '../components/ui/ViewRowStart';
+import IonicIons from 'react-native-vector-icons/Ionicons';
 
 const IndividualDetailScreen = ({
   route,
@@ -20,24 +20,15 @@ const IndividualDetailScreen = ({
   const recipeId = route.params.recipeId;
   const { colors } = useAppTheme();
   const { recipeList, loading, error } = useFilterBySearch({ recipeId });
-  type ItemProps = { key: string; item: string };
-  const Item = ({ key, item }: ItemProps) => {
-    return (
-      <View
-        style={{ marginVertical: 4, marginHorizontal: 4 }}
-        key={key + new Date()}
-      >
-        <Text style={{ fontSize: responsiveScale(10) }}>{item}</Text>
-      </View>
-    );
-  };
 
   const renderItem = ({ item }: { item: Meal }) => {
     return (
       <View style={styles.individualDetailScreenContainer}>
-        <ViewRowStart
+        <View
           style={{
-            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
           <Text
@@ -50,7 +41,17 @@ const IndividualDetailScreen = ({
           >
             {item.title.toUpperCase()}
           </Text>
-        </ViewRowStart>
+
+          <View>
+            <IonicIons
+              name="heart-outline"
+              size={responsiveScale(20)}
+              color={'white'}
+            />
+
+            {/** <IonicIons name="heart" size={responsiveScale(20)} color={'red'} /> */}
+          </View>
+        </View>
 
         <View
           style={{
@@ -177,34 +178,43 @@ const IndividualDetailScreen = ({
             justifyContent: 'flex-end',
           }}
         >
-          <View style={styles.roundCircleBackground}>
-            <Icon
-              name="wheat-awn-circle-exclamation"
-              size={responsiveScale(10)}
-              color={colors.tertiary}
-            />
-          </View>
-          <View style={styles.roundCircleBackground}>
-            <EntypoIcon
-              name="leaf"
-              size={responsiveScale(10)}
-              color={colors.tertiary}
-            />
-          </View>
-          <View style={styles.roundCircleBackground}>
-            <EntypoIcon
-              name="app-store"
-              size={responsiveScale(10)}
-              color={colors.tertiary}
-            />
-          </View>
-          <View style={styles.roundCircleBackground}>
-            <Icon
-              name="virus-covid"
-              size={responsiveScale(10)}
-              color={colors.tertiary}
-            />
-          </View>
+          {item.isGlutenFree && (
+            <View style={styles.roundCircleBackground}>
+              <Icon
+                name="wheat-awn-circle-exclamation"
+                size={responsiveScale(10)}
+                color={colors.tertiary}
+              />
+            </View>
+          )}
+          {item.isVegan && (
+            <View style={styles.roundCircleBackground}>
+              <EntypoIcon
+                name="leaf"
+                size={responsiveScale(10)}
+                color={colors.tertiary}
+              />
+            </View>
+          )}
+
+          {item.isVegetarian && (
+            <View style={styles.roundCircleBackground}>
+              <EntypoIcon
+                name="app-store"
+                size={responsiveScale(10)}
+                color={colors.tertiary}
+              />
+            </View>
+          )}
+          {item.isLactoseFree && (
+            <View style={styles.roundCircleBackground}>
+              <Icon
+                name="virus-covid"
+                size={responsiveScale(10)}
+                color={colors.tertiary}
+              />
+            </View>
+          )}
         </View>
       </View>
     );

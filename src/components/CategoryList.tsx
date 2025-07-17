@@ -1,5 +1,5 @@
 import ViewRow from './ui/ViewRow';
-import { responsiveScale, useAppTheme } from '../Theme';
+import { SPACING, responsiveScale, useAppTheme } from '../Theme';
 import { Text } from 'react-native-paper';
 import Category from '../models/category';
 import { FlatList, TouchableOpacity } from 'react-native';
@@ -22,14 +22,13 @@ const CategoryList = ({
         }}
         style={{
           backgroundColor: colors.secondary,
-          flex: 1,
           minWidth: '90%',
-          padding: responsiveScale(10),
-          marginVertical: responsiveScale(8),
+          padding: responsiveScale(SPACING.S + SPACING.XS / 2),
+          marginVertical: responsiveScale(SPACING.M / 2),
           borderRadius: responsiveScale(50),
         }}
       >
-        <ViewRow style={{ flex: 1 }}>
+        <ViewRow>
           <Text variant="bodySmall" style={{ color: colors.tertiary }}>
             {item.title}
           </Text>
@@ -39,13 +38,12 @@ const CategoryList = ({
   };
 
   return (
-    <>
-      <FlatList
-        data={category}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
-    </>
+    <FlatList
+      showsVerticalScrollIndicator={false}
+      data={category}
+      renderItem={renderItem}
+      keyExtractor={item => item.id}
+    />
   );
 };
 

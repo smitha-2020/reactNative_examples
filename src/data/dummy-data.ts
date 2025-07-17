@@ -162,7 +162,7 @@ export const MEALS: Meal[] = [
     ],
     true,
     false,
-    true,
+    false,
     true,
   ),
 

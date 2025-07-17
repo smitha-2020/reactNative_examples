@@ -3,11 +3,17 @@ import ViewOuterTemplate from '../components/ui/template/ViewOuterTemplate';
 import { responsiveScale, useAppTheme } from '../Theme';
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { RouteStackParamList } from '../navigation/types';
-import { TouchableOpacity, View } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import RecipeListByCategory from '../components/RecipeListByCategory';
 import BottomSheetFilter from '../components/ui/bottomSheet/BottomSheetFilter';
 import BottomSheet from '@gorhom/bottom-sheet';
 import Icon from 'react-native-vector-icons/FontAwesome6';
+import DropdownComponent from '../components/DropdownComponent';
 
 const DetailsScreen = ({
   route,
@@ -23,6 +29,13 @@ const DetailsScreen = ({
   const [isBottomSheetVisible, setIsBottomSheetVisible] =
     useState<boolean>(false);
   const [checked, setChecked] = useState<string>('');
+  const { width } = useWindowDimensions();
+  const [gender, setGender] = useState<string>();
+  const OPTIONS = [
+    { label: 'Male', value: 'male' },
+    { label: 'Female', value: 'female' },
+    { label: 'Other', value: 'other' },
+  ];
 
   const handleBottomSheetVisibility = useCallback(() => {
     setIsBottomSheetVisible(!isBottomSheetVisible);
@@ -43,20 +56,37 @@ const DetailsScreen = ({
   }, [navigation]);
   return (
     <ViewOuterTemplate marginWidth="0" marginHeight="80">
-      <TouchableOpacity
+      <View
         style={{
+          width,
+          height: responsiveScale(20),
+          marginTop: responsiveScale(15),
+          paddingHorizontal: responsiveScale(20),
           flexDirection: 'row',
-          justifyContent: 'flex-end',
-          marginTop: 20,
-          marginRight: -320,
-        }}
-        onPress={() => {
-          handleBottomSheetVisibility();
-          ref.current?.expand();
+          justifyContent: 'space-between',
         }}
       >
-        <Icon name="filter" size={25} color={colors.tertiary} />
-      </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ color: colors.tertiary, fontWeight: 'bold' }}>
+            Sort By
+          </Text>
+          <DropdownComponent />
+        </View>
+        <TouchableOpacity
+          onPress={() => {
+            handleBottomSheetVisibility();
+            ref.current?.expand();
+          }}
+        >
+          <Icon name="filter" size={25} color={colors.tertiary} />
+        </TouchableOpacity>
+      </View>
 
       <View
         style={{
