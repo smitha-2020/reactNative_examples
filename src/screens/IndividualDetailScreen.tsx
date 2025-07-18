@@ -31,16 +31,24 @@ const IndividualDetailScreen = ({
             alignItems: 'center',
           }}
         >
-          <Text
-            variant="headlineSmall"
+          <View
             style={{
-              fontSize: 16,
-              fontFamily: 'FontAwesome6_Solid',
-              color: 'coral',
+              width: '90%',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
             }}
           >
-            {item.title.toUpperCase()}
-          </Text>
+            <Text
+              variant="headlineSmall"
+              style={{
+                fontSize: 16,
+                fontFamily: 'FontAwesome6_Solid',
+                color: 'coral',
+              }}
+            >
+              {item.title.toUpperCase()}
+            </Text>
+          </View>
 
           <View>
             <IonicIons
@@ -84,10 +92,15 @@ const IndividualDetailScreen = ({
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'flex-start',
-              width: '60%',
             }}
           >
-            <View>
+            <View
+              style={{
+                width: '65%',
+                flexWrap: 'wrap',
+                flexDirection: 'row',
+              }}
+            >
               {item.ingredients.map((mealIngredient: any) => (
                 <View
                   style={{

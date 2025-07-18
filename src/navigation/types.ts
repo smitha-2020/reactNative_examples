@@ -7,7 +7,7 @@ export type RouteStackParamList = {
   IndividualDetailScreen: {
     recipeId: string;
   };
-  FavoriteListScreen: undefined;
+
   // add other routes here
 };
 

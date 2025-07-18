@@ -1,10 +1,11 @@
 import AppStateProvider from './provider/AppStateProvider';
-import Routes from './Routes';
+//import Routes from './Routes';
+import TabRoute from './TabRoute';
 
 const MainApp = () => {
   return (
     <AppStateProvider>
-      <Routes />
+      <TabRoute />
     </AppStateProvider>
   );
 };
