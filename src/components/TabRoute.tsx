@@ -1,14 +1,16 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Routes from './Routes';
 import { NavigationContainer } from '@react-navigation/native';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import { responsiveScale, useAppTheme } from '../Theme';
+
 import FavoriteListScreen from '../screens/FavoriteListScreen';
 import IonicIons from 'react-native-vector-icons/Ionicons';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
-import { responsiveScale } from '../Theme';
+import Routes from './Routes';
 
 const Tab = createBottomTabNavigator();
 
 const TabRoute = () => {
+  const { colors } = useAppTheme();
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -16,27 +18,22 @@ const TabRoute = () => {
           headerShown: false,
           tabBarHideOnKeyboard: true,
           tabBarActiveTintColor: 'red',
-          tabBarInactiveTintColor: 'gray',
+          tabBarInactiveTintColor: colors.tertiary,
+          tabBarStyle: {
+            backgroundColor: colors.secondary,
+          },
         }}
       >
         <Tab.Screen
           name="Home"
           component={Routes}
           options={{
-            tabBarIcon: ({
-              focused,
-              color,
-              size,
-            }: {
-              focused: boolean;
-              color: string;
-              size: number;
-            }) => {
+            tabBarIcon: ({ focused }: { focused: boolean }) => {
               return (
                 <EntypoIcon
                   name="home"
                   size={responsiveScale(20)}
-                  color={focused ? 'red' : 'gray'}
+                  color={focused ? 'red' : colors.tertiary}
                 />
               );
             },
@@ -47,20 +44,12 @@ const TabRoute = () => {
           component={FavoriteListScreen}
           options={{
             tabBarBadge: 5,
-            tabBarIcon: ({
-              focused,
-              color,
-              size,
-            }: {
-              focused: boolean;
-              color: string;
-              size: number;
-            }) => {
+            tabBarIcon: ({ focused }: { focused: boolean }) => {
               return (
                 <IonicIons
                   name="heart"
                   size={responsiveScale(20)}
-                  color={focused ? 'red' : 'gray'}
+                  color={focused ? 'red' : colors.tertiary}
                 />
               );
             },

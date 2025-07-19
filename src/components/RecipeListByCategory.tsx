@@ -1,9 +1,10 @@
-import ViewRow from './ui/ViewRow';
 import { responsiveScale, useAppTheme } from '../Theme';
 import { Card, Text } from 'react-native-paper';
 import { FlatList } from 'react-native';
-import { useFilterBySearch } from '../hooks/useFilterBySearch';
-import Meal from '../models/meal';
+
+import { Meal } from '../models/meal';
+import { useFilters } from '../hooks/useFilters';
+import { AllergyTypes } from '../navigation/types';
 
 const RecipeListByCategory = ({
   navigation,
@@ -14,14 +15,11 @@ const RecipeListByCategory = ({
   navigation: any;
   searchText: string;
   categoryId: string;
-  checked: string;
+  checked: Record<AllergyTypes, boolean>;
 }) => {
   const { colors } = useAppTheme();
-  const { recipeList, loading, error } = useFilterBySearch({
-    searchText,
-    categoryId,
-    checked,
-  });
+
+  const { meals } = useFilters({ searchText, categoryId, checked });
 
   const renderItem = ({ item }: { item: Meal }) => {
     return (
@@ -67,32 +65,9 @@ const RecipeListByCategory = ({
     );
   };
 
-  if (error) {
-    return (
-      <Text
-        style={{
-          textAlign: 'center',
-          marginTop: responsiveScale(20),
-          color: colors.tertiary,
-        }}
-      >
-        Oops!Error Occured!
-      </Text>
-    );
-  }
-  if (loading) {
-    return (
-      <ViewRow>
-        <Text variant="bodySmall" style={{ color: colors.tertiary }}>
-          Loading...
-        </Text>
-      </ViewRow>
-    );
-  }
-
   return (
     <FlatList
-      data={recipeList}
+      data={meals}
       renderItem={renderItem}
       keyExtractor={item => item.id}
       numColumns={2}

@@ -11,6 +11,8 @@ import { PaperProvider } from 'react-native-paper';
 import { CustomLightTheme } from './src/Theme';
 import MainApp from './src/components/MainApp';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Provider } from 'react-redux';
+import { store } from './src/app/store';
 
 const Main = () => {
   const theme = CustomLightTheme;
@@ -25,7 +27,11 @@ const Main = () => {
 };
 
 function App(): React.JSX.Element {
-  return <Main />;
+  return (
+    <Provider store={store}>
+      <Main />
+    </Provider>
+  );
 }
 
 export default App;

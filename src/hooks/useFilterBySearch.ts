@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import Meal from '../models/meal';
+
 import { MEALS } from '../data/dummy-data';
 import { FilterBySearchProps } from '../navigation/types';
+import { Meal } from '../models/meal';
+
+/**Hook used for searching,filtering before moving to Redux */
 
 export const useFilterBySearch = ({
   searchText,

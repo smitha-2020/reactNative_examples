@@ -1,10 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
-import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { Checkbox } from 'react-native-paper';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { responsiveScale } from '../../../Theme';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+
+import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import { AllergyTypes } from '../../../features/recipe';
 
 const BottomSheetFilter = ({
   ref,
@@ -16,19 +18,33 @@ const BottomSheetFilter = ({
   ref: React.RefObject<BottomSheetMethods | null>;
   isBottomSheetVisible: boolean;
   handleBottomSheetVisibility: () => void;
-  setChecked: React.Dispatch<React.SetStateAction<string>>;
-  checked: string;
+  setChecked: React.Dispatch<
+    React.SetStateAction<Record<AllergyTypes, boolean>>
+  >;
+  checked: Record<AllergyTypes, boolean>;
 }) => {
   const snapPoints = useMemo(() => ['25%', '50%', '75%'], []);
   const handleSheetChanges = useCallback((index: number) => {
     console.log('BottomSheet index changed:', index);
   }, []);
-  const handleSelect = (label: string) => {
-    setChecked(label); // Toggle logic
+
+  const handleSelect = (label: AllergyTypes) => {
+    setChecked(prev =>
+      Object.keys(prev).reduce((acc, key) => {
+        acc[key as AllergyTypes] = label === key;
+        return acc;
+      }, {} as typeof prev),
+    );
   };
 
   const closeSheet = useCallback(() => {
     ref.current?.close();
+    setChecked(prev =>
+      Object.keys(prev).reduce((acc, key) => {
+        acc[key as AllergyTypes] = false;
+        return acc;
+      }, {} as typeof prev),
+    );
     handleBottomSheetVisibility();
   }, []);
 
@@ -85,8 +101,11 @@ const BottomSheetFilter = ({
                     labelStyle={{ fontSize: responsiveScale(8) }}
                     key={label}
                     label={label}
-                    status={checked === label ? 'checked' : 'unchecked'}
-                    onPress={() => handleSelect(label)}
+                    status={
+                      checked[label as AllergyTypes] ? 'checked' : 'unchecked'
+                    }
+                    //status={checked === label ? 'checked' : 'unchecked'}
+                    onPress={() => handleSelect(label as AllergyTypes)}
                   />
                 ))}
               </View>

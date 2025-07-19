@@ -2,7 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import ViewOuterTemplate from '../components/ui/template/ViewOuterTemplate';
 import { responsiveScale, useAppTheme } from '../Theme';
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
-import { RouteStackParamList } from '../navigation/types';
+import { AllergyTypes, RouteStackParamList } from '../navigation/types';
 import {
   Text,
   TouchableOpacity,
@@ -28,14 +28,13 @@ const DetailsScreen = ({
   const ref = useRef<BottomSheet>(null);
   const [isBottomSheetVisible, setIsBottomSheetVisible] =
     useState<boolean>(false);
-  const [checked, setChecked] = useState<string>('');
+  const [checked, setChecked] = useState<Record<AllergyTypes, boolean>>({
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: false,
+    isLactoseFree: false,
+  });
   const { width } = useWindowDimensions();
-  const [gender, setGender] = useState<string>();
-  const OPTIONS = [
-    { label: 'Male', value: 'male' },
-    { label: 'Female', value: 'female' },
-    { label: 'Other', value: 'other' },
-  ];
 
   const handleBottomSheetVisibility = useCallback(() => {
     setIsBottomSheetVisible(!isBottomSheetVisible);
@@ -50,6 +49,9 @@ const DetailsScreen = ({
         hideWhenScrolling: false,
         onChangeText: (event: { nativeEvent: { text: any } }) => {
           setSearchText(event.nativeEvent.text);
+        },
+        onCancelButtonPress: () => {
+          setSearchText('');
         },
       },
     });
