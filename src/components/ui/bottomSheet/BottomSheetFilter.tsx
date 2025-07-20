@@ -6,7 +6,7 @@ import { responsiveScale } from '../../../Theme';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import { AllergyTypes } from '../../../features/recipe';
+import { AllergyTypes } from '../../../navigation/types';
 
 const BottomSheetFilter = ({
   ref,

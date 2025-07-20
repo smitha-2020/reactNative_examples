@@ -1,23 +1,17 @@
-import { RouteProp } from '@react-navigation/native';
-import { useAppTheme } from '../Theme';
-import { RouteStackParamList } from '../navigation/types';
-import { Text, View } from 'react-native';
+import { ParamListBase, RouteProp } from '@react-navigation/native';
 import ViewOuterTemplate from '../components/ui/template/ViewOuterTemplate';
+import FavouriteList from '../components/FavouriteList';
 
 const FavoriteListScreen = ({
   route,
   navigation,
 }: {
-  route: RouteProp<RouteStackParamList, 'FavoriteListScreen'>;
+  route: RouteProp<ParamListBase, 'FavoriteListScreen'>;
   navigation: any;
 }) => {
-  const { colors } = useAppTheme();
-
   return (
-    <ViewOuterTemplate marginWidth="0" marginHeight="80">
-      <View>
-        <Text>Content goes here!</Text>
-      </View>
+    <ViewOuterTemplate marginWidth="0" marginHeight="70">
+      <FavouriteList navigation={navigation} />
     </ViewOuterTemplate>
   );
 };

@@ -6,11 +6,13 @@ import { responsiveScale, useAppTheme } from '../Theme';
 import FavoriteListScreen from '../screens/FavoriteListScreen';
 import IonicIons from 'react-native-vector-icons/Ionicons';
 import Routes from './Routes';
+import { useAppSelector } from '../app/hooks';
 
 const Tab = createBottomTabNavigator();
 
 const TabRoute = () => {
   const { colors } = useAppTheme();
+  const badge = useAppSelector(state => state.RecipeReducer.favoriteIds).length;
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -43,7 +45,7 @@ const TabRoute = () => {
           name="FavoriteListScreen"
           component={FavoriteListScreen}
           options={{
-            tabBarBadge: 5,
+            tabBarBadge: badge,
             tabBarIcon: ({ focused }: { focused: boolean }) => {
               return (
                 <IonicIons

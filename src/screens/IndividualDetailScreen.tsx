@@ -1,14 +1,21 @@
 import { RouteProp } from '@react-navigation/native';
 import { RouteStackParamList } from '../navigation/types';
-import { FlatList, Image, StyleSheet, View } from 'react-native';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import ViewOuterTemplate from '../components/ui/template/ViewOuterTemplate';
 import { responsiveScale, useAppTheme } from '../Theme';
-import { useFilterBySearch } from '../hooks/useFilterBySearch';
-import Meal from '../models/meal';
 import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome6';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
 import IonicIons from 'react-native-vector-icons/Ionicons';
+import { Meal } from '../models/meal';
+import { useAppSelector } from '../app/hooks';
+import { useReduxReducerFilter } from '../hooks/useReduxReducerFilter';
+import DietaryListing from '../components/DietaryListing';
 
 const IndividualDetailScreen = ({
   route,
@@ -19,8 +26,15 @@ const IndividualDetailScreen = ({
 }) => {
   const recipeId = route.params.recipeId;
   const { colors } = useAppTheme();
-  const { recipeList, loading, error } = useFilterBySearch({ recipeId });
-
+  //const { recipeList, loading, error } = useFilterBySearch({ recipeId });
+  let meals: Meal[] = useAppSelector(state => state.RecipeReducer.filterdMeals);
+  let favoriteMeal: string[] = useAppSelector(
+    state => state.RecipeReducer.favoriteIds,
+  );
+  const meal = meals.filter(meal => {
+    return meal.id === recipeId;
+  });
+  const { addFav } = useReduxReducerFilter();
   const renderItem = ({ item }: { item: Meal }) => {
     return (
       <View style={styles.individualDetailScreenContainer}>
@@ -51,13 +65,27 @@ const IndividualDetailScreen = ({
           </View>
 
           <View>
-            <IonicIons
-              name="heart-outline"
-              size={responsiveScale(20)}
-              color={'white'}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                addFav({ recipeId: item.id });
+              }}
+            >
+              {favoriteMeal.includes(item.id) ? (
+                <IonicIons
+                  name="heart"
+                  size={responsiveScale(20)}
+                  color={'red'}
+                />
+              ) : (
+                <IonicIons
+                  name="heart-outline"
+                  size={responsiveScale(20)}
+                  color={'white'}
+                />
+              )}
+            </TouchableOpacity>
 
-            {/** <IonicIons name="heart" size={responsiveScale(20)} color={'red'} /> */}
+            {/**  */}
           </View>
         </View>
 
@@ -185,50 +213,7 @@ const IndividualDetailScreen = ({
           </View>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-          }}
-        >
-          {item.isGlutenFree && (
-            <View style={styles.roundCircleBackground}>
-              <Icon
-                name="wheat-awn-circle-exclamation"
-                size={responsiveScale(10)}
-                color={colors.tertiary}
-              />
-            </View>
-          )}
-          {item.isVegan && (
-            <View style={styles.roundCircleBackground}>
-              <EntypoIcon
-                name="leaf"
-                size={responsiveScale(10)}
-                color={colors.tertiary}
-              />
-            </View>
-          )}
-
-          {item.isVegetarian && (
-            <View style={styles.roundCircleBackground}>
-              <EntypoIcon
-                name="app-store"
-                size={responsiveScale(10)}
-                color={colors.tertiary}
-              />
-            </View>
-          )}
-          {item.isLactoseFree && (
-            <View style={styles.roundCircleBackground}>
-              <Icon
-                name="virus-covid"
-                size={responsiveScale(10)}
-                color={colors.tertiary}
-              />
-            </View>
-          )}
-        </View>
+        <DietaryListing item={item} />
       </View>
     );
   };
@@ -236,9 +221,10 @@ const IndividualDetailScreen = ({
     <ViewOuterTemplate marginWidth="0" marginHeight="80">
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={recipeList}
+        data={meal}
         renderItem={renderItem}
         keyExtractor={item => item.id}
+        keyboardShouldPersistTaps="handled"
       />
     </ViewOuterTemplate>
   );

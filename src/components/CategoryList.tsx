@@ -1,8 +1,8 @@
 import ViewRow from './ui/ViewRow';
 import { SPACING, responsiveScale, useAppTheme } from '../Theme';
 import { Text } from 'react-native-paper';
-import Category from '../models/category';
 import { FlatList, TouchableOpacity } from 'react-native';
+import { Category } from '../models/category';
 
 const CategoryList = ({
   category,

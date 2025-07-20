@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useAppDispatch } from '../app/hooks';
-import { applyFilter } from '../features/recipe';
+import { addFavourite, applyFilter } from '../redux/slices/recipeSlice';
 import { FilterBySearch } from '../navigation/types';
 
 export const useReduxReducerFilter = () => {
@@ -13,5 +13,9 @@ export const useReduxReducerFilter = () => {
     [],
   );
 
-  return { filterByParams };
+  const addFav = useCallback(({ recipeId }: { recipeId: string }) => {
+    dispatch(addFavourite({ recipeId }));
+  }, []);
+
+  return { filterByParams, addFav };
 };

@@ -11,6 +11,13 @@ export type RouteStackParamList = {
   };
 };
 
+export type FavStackParamList = {
+  FavoriteListScreen: undefined;
+  IndividualDetailScreen: {
+    recipeId: string;
+  };
+};
+
 export type FilterBySearchProps = {
   searchText?: string;
   categoryId?: string;
@@ -33,6 +40,7 @@ export type AllergyTypes =
 export interface RecipeState {
   value: Meal[];
   filterdMeals: Meal[];
+  favoriteIds: string[];
   loading: boolean;
   error: string | null;
 }

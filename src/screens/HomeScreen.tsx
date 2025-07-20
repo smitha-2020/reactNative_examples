@@ -1,7 +1,7 @@
 import { ParamListBase, RouteProp } from '@react-navigation/native';
-import Category from '../models/category';
 import CategoryList from '../components/CategoryList';
 import ViewOuterTemplate from '../components/ui/template/ViewOuterTemplate';
+import { Category } from '../models/category';
 
 const HomeScreen = ({
   route,

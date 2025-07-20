@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useAppSelector } from '../app/hooks';
 
 import { Meal } from '../models/meal';
-import { AllergyTypes } from '../features/recipe';
 import { useReduxReducerFilter } from './useReduxReducerFilter';
+import { AllergyTypes } from '../navigation/types';
 
 export const useFilters = ({
   categoryId,

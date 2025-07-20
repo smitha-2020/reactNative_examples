@@ -1,10 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MEALS } from '../data/dummy-data';
-import { AllergyTypes, FilterBySearch, RecipeState } from '../navigation/types';
+import { MEALS } from '../../data/dummy-data';
+import {
+  AllergyTypes,
+  FilterBySearch,
+  RecipeState,
+} from '../../navigation/types';
 
 const initialState: RecipeState = {
   value: MEALS,
   filterdMeals: MEALS,
+  favoriteIds: [],
   loading: false,
   error: null,
 };
@@ -46,10 +51,13 @@ export const recipeSlice = createSlice({
         );
       });
     },
+    addFavourite: (state, action: PayloadAction<{ recipeId: string }>) => {
+      state.favoriteIds.push(action.payload.recipeId);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { applyFilter } = recipeSlice.actions;
+export const { applyFilter, addFavourite } = recipeSlice.actions;
 
 export default recipeSlice.reducer;
